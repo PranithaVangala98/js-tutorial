@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>PersonDetails</title>
+
+</head>
+
+<body>
+    <form id="form">
+        <p>
+            <label>FirstName:</label>
+            <input type="text" id="name">
+        </p>
+        <p>
+            Lastname:
+            <input type="text" id="lname">
+        </p>
+        DateofBirth:<input type="date" id="dob">
+
+        <P> Address:</P>
+
+        <p>
+            <textarea name="Address" id="address" cols="30" rows="10"></textarea>
+        </p>
+        <p>
+            <input type="submit" value="Done">
+        </p>
+        <p>
+        <ol id="displayList">
+
+        </ol>
+        </p>
+
+    </form>
+
+</body>
+<script>
+    const form = document.getElementById("form")
+    const fname = document.getElementById("name")
+    const lname = document.getElementById("lname")
+    const dob = document.getElementById("dob")
+    const address = document.getElementById("address")
+    const personDetails = []
+    form.addEventListener("submit", (e) => {
+        e.preventDefault()
+        const personInfo = {}
+        personInfo.firstName = fname.value
+        personInfo.lastName = lname.value
+        personInfo.dob = dob.value
+        personInfo.address = address.value
+        if (fname.value !== '' && lname.value !== '' && dob.value !== '' && address.value !== '') {
+            const display = document.getElementById("displayList")
+            display.innerHTML += `
+        <li>
+            <span>${fname.value} ${lname.value} ${dob.value} ${address.value}</span>
+        <button onclick="editName(this)" id='index-${personDetails.length}'> Edit</button>
+        <button onclick="delName(this)">Delet</button>
+        </li>
+        `
+            personDetails.push(personInfo)
+
+        }
+        fname.value = ""
+        lname.value = ""
+        dob.value = ""
+        address.value = ""
+    })
+    function editName(a) {
+        const id = a.id
+        const index = Number(id.split('-')[1])
+        const personInfo = personDetails[index]
+        fname.value = personInfo.firstName
+        lname.value = personInfo.lastName
+        dob.value = personInfo.dob
+        address.value = personInfo.address
+        a.parentElement.remove()
+    }
+    function delName(b) {
+        b.parentElement.remove()
+    }
+</script>
+
+</html>

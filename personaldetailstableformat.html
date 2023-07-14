@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>PersonDetails</title>
+    <style>
+        table,
+        tr,
+        td,
+        th {
+            border-style: solid;
+            padding: 10px;
+            border-collapse: collapse;
+        }
+    </style>
+</head>
+
+<body>
+    <form id="form">
+        <p>
+            <label>FirstName:</label>
+            <input type="text" id="name">
+        </p>
+        <p>
+            Lastname:
+            <input type="text" id="lname">
+        </p>
+        DateofBirth:<input type="date" id="dob">
+
+        <P> Address:</P>
+
+        <p>
+            <textarea name="Address" id="address" cols="30" rows="10"></textarea>
+        </p>
+        <p>
+            <input type="submit" value="Done">
+        </p>
+
+        </p>
+    </form>
+    <p>
+    
+    </p>
+    <table id="displayList">
+        <tr>
+            <th>S.No</th>
+            <th>FirstName</th>
+            <th>LastName</th>
+            <th>DOB</th>
+            <th>Address</th>
+        </tr>
+
+    </table>
+</body>
+<script>
+    const form = document.getElementById("form")
+    const fname = document.getElementById("name")
+    const lname = document.getElementById("lname")
+    const dob = document.getElementById("dob")
+    const address = document.getElementById("address")
+    const tableRow = document.getElementById('displayList')
+    const personDetails = []
+    form.addEventListener("submit", (e) => {
+        e.preventDefault()
+        const personInfo = {}
+        personInfo.firstName = fname.value
+        personInfo.lastName = lname.value
+        personInfo.dob = dob.value
+        personInfo.address = address.value
+        if (fname.value !== '' && lname.value !== '' && dob.value !== '' && address.value !== '') {
+            
+            personDetails.push(personInfo)
+            const pos = personDetails.length
+            table(personInfo, pos)
+        //     <button onclick="editName(this)" id='index-${personDetails.length}'> Edit</button>
+        //  <button onclick="delName(this)">Delet</button>
+        }
+        fname.value = ""
+        lname.value = ""
+        dob.value = ""
+        address.value = ""
+    })
+    function table(personInfo, pos) {
+        const row = tableRow.insertRow(pos)
+        const cell1 = row.insertCell(0);
+        const cell2 = row.insertCell(1);
+        const cell3 = row.insertCell(2);
+        const cell4 = row.insertCell(3);
+        const cell5 = row.insertCell(4);
+        
+
+        cell1.innerHTML = pos
+        cell2.innerHTML = personInfo.firstName;
+        cell3.innerHTML = personInfo.lastName;
+        cell4.innerHTML = personInfo.dob;
+        cell5.innerHTML = personInfo.address;
+    }
+</script>
+
+</html>
