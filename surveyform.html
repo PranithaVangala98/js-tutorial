@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SURVEY FORM</title>
+    <style>
+        body {
+            background-color: #05c46b;
+            font-family: Verdana;
+            text-align: center;
+        }
+
+        .boxInside {
+            height: fit-content;
+            width: fit-content;
+            padding: 30px;
+            background-color: white;
+            margin-left: 420px;
+            margin-top: 50px;
+            box-shadow: 2px 5px 10px rgba(0, 0, 0, 0.5);
+
+        }
+
+        .key {
+            text-align: left;
+            padding-top: 25px;
+            margin-left: 0px;
+        }
+
+        .form {
+            text-align: left;
+            padding-top: 13px;
+
+        }
+
+        #name,
+        #age,
+        #email {
+            width: 95%;
+            border: 1px solid #777;
+            border-radius: 2px;
+            font-family: inherit;
+            padding: 10px;
+            display: block;
+
+        }
+
+        .role {
+            width: 98.5%;
+            border: 1px solid #777;
+            border-radius: 2px;
+            font-family: inherit;
+            padding: 10px;
+            display: block;
+
+        }
+
+        button {
+            text-align: center;
+            background-color: #05c46b;
+            height: 40px;
+            font-size: 20px;
+            width: 582px;
+            margin-top: 30px;
+            border-radius: 2px;
+            font-family: inherit;
+        }
+    </style>
+</head>
+
+<body>
+    <h1 style="text-align: center;">GeeksforGeeks Survey Form</h1>
+    <form id="formMain" action="">
+        <div class="boxInside">
+            <div style="text-align: left;">Name</div>
+            <div class="form"><input id="name" placeholder="Enter your name"></div>
+            <div class="key">Email</div>
+            <div class="form"><input type="email" id="email" placeholder="Enter your email"></div>
+            <div class="key">Age</div>
+            <div class="form"><input type="age" id="age" placeholder="Enter your age"></div>
+            <div class="key">Which option describes best you?</div>
+            <div class="form">
+                <select class="role">
+                    <option id="fresher">Fresher</option>
+                    <option id="intern">Intern</option>
+                    <option id="professional">professional</option>
+                    <option id="others">Others</option>
+                </select>
+
+            </div>
+            <div class="key">Would you recommend GeeksforGeeks for a friend?</div>
+            <div class="form">
+                <label for="recommend"></label>
+                <input type="radio" name="recommend" id="yes" value="yes">Yes
+            </div>
+            <div class="form"><input type="radio" name="recommend" id="no" value="no">No</div>
+            <div class="form"><input type="radio" name="recommend" id="mayBe" value="maybe">Maybe</div>
+            <div class="key"> Languages and Frameworks known (Check all that Apply)</div>
+            <div class="form"><input type="checkbox" name="skills" id="C" value="C"> C</div>
+            <div class="form"><input type="checkbox" name="skills" id="C++" value="C++"> C++</div>
+            <div class="form"><input type="checkbox" name="skills" id="C#" value="C#"> C#</div>
+            <div class="form"><input type="checkbox" name="skills" id="Java" value="Java"> Java</div>
+            <div class="form"><input type="checkbox" name="skills" id="Python" value="Python"> Python</div>
+            <div class="form"><input type="checkbox" name="skills" id="Javascript" value="Javascript"> Javascript</div>
+            <div class="form"><input type="checkbox" name="skills" id="React" value="React"> React</div>
+            <div class="form"><input type="checkbox" name="skills" id="Angular" value="Angular"> Angular</div>
+            <div class="form"><input type="checkbox" name="skills" id="Django" value="Django"> Django</div>
+            <div class="form"><input type="checkbox" name="skills" id="Spring" value="Spring"> Spring</div>
+            <div class="key">Any comments or suggestions</div>
+            <div class="form"><textarea name="comments" id="comments" cols="69" rows="3"></textarea></div>
+            <div class="form"><button type="submit" id="submit">Submit </button></div>
+        </div>
+    </form>
+    <p>
+    <ol id="display" style="text-align: left;">
+
+    </ol>
+    <ol id="result" style="text-align: left;"></ol>
+    </p>
+</body>
+
+<script>
+    'use strict'
+    const form = document.getElementById("formMain")
+    const name = document.getElementById("name")
+    const age = document.getElementById("age")
+    const email = document.getElementById("email")
+    const comments = document.getElementById("comments")
+    
+    let skills 
+    form.addEventListener("submit", (e) => {
+        e.preventDefault()
+        const surveySummery = []
+        const surveryDetails = {}
+        surveryDetails.name = name.value
+        surveryDetails.email = email.value
+        surveryDetails.age = age.value
+        surveryDetails.comments = name.comments
+        const ele = document.getElementsByName('recommend');
+        let recommend
+        for (let i = 0; i < ele.length; i++) {
+            if (ele[i].checked) {
+                recommend = ele[i].value
+            }
+        }
+        const skills = document.getElementsByName('skills');
+        let checkBox = " "
+        for (let i=0; i<skills.length;i++){
+            if(skills[i].checked){
+                checkBox+=skills[i].value+" "
+            }
+        }
+
+        if (name.value !== 0 && email.value !== 0 && age.value !== 0 && comments.value !== 0) {
+            const display = document.getElementById("display")
+            display.innerHTML += `
+             <li>
+                ${name.value} ${email.value} ${age.value} ${recommend} ${checkBox} ${comments.value} 
+                </li>`
+        }
+        name.value = ''
+        age.value = ''
+        email.value = ''
+        comments.value = ''
+        
+    })
+</script>
+
+</html>
